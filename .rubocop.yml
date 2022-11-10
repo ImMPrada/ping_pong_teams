@@ -2,6 +2,16 @@ require:
   - rubocop-rspec
   - rubocop-rails
 
+AllCops:
+  Exclude:
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - '*'
+
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
 
