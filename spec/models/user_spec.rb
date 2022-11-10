@@ -9,4 +9,9 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
   end
+
+  describe 'Associations' do
+    it { is_expected.to have_many(:team_users) }
+    it { is_expected.to have_many(:teams).through(:team_users) }
+  end
 end
