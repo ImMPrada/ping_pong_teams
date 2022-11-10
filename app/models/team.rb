@@ -4,4 +4,5 @@ class Team < ApplicationRecord
   has_one_attached :logo
   has_many :team_users, dependent: :destroy
   has_many :users, through: :team_users
+  has_many :pings, dependent: :destroy
 end

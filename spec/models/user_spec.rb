@@ -13,5 +13,7 @@ RSpec.describe User, type: :model do
   describe 'Associations' do
     it { is_expected.to have_many(:team_users) }
     it { is_expected.to have_many(:teams).through(:team_users) }
+    it { is_expected.to have_many(:pings).dependent(:destroy) }
+    it { is_expected.to have_many(:pongs).dependent(:destroy) }
   end
 end
