@@ -12,7 +12,7 @@ class TeamsController < ApplicationController
   end
 
   def index
-
+    @teams = current_user.teams
   end
 
   private
@@ -23,7 +23,7 @@ class TeamsController < ApplicationController
 
   def respond_with_success(_team)
     flash[:success] = 'Team created!'
-    redirect_to root_path
+    redirect_to teams_path
   end
 
   def respond_with_errors(team)

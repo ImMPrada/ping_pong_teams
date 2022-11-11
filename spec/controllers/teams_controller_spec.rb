@@ -3,9 +3,12 @@ require 'rails_helper'
 RSpec.describe TeamsController, type: :controller do
   let(:user) { create(:user) }
 
+  before do
+    sign_in user
+  end
+
   describe '#new' do
     before do
-      sign_in user
       get :new
     end
 
@@ -16,7 +19,6 @@ RSpec.describe TeamsController, type: :controller do
 
   describe '#create' do
     before do
-      sign_in user
       post :create, params: params
     end
 
@@ -37,8 +39,8 @@ RSpec.describe TeamsController, type: :controller do
         expect(response.status).to eq(302)
       end
 
-      it 'redirects back to the homepage' do
-        expect(response.redirect_url).to eq(root_url)
+      it 'redirects back to the teams page' do
+        expect(response.redirect_url).to eq(teams_url)
       end
     end
 
@@ -54,6 +56,16 @@ RSpec.describe TeamsController, type: :controller do
       it 'redirects back to the homepage' do
         expect(response.redirect_url).to eq(new_team_url)
       end
+    end
+  end
+
+  describe '#index' do
+    it 'renders the #index template' do
+      get :index
+      expect(response).to render_template('index')
+    end
+
+    xit "calls current_user's teams" do
     end
   end
 end
