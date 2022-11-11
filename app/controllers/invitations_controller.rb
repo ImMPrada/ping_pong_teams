@@ -1,28 +1,35 @@
 class InvitationsController < ApplicationController
+  before_action :authenticate_user!
+
   def new; end
 
   def create
-    invitation = Invitation.new
+    return respond_with_errors('User does not exist.') if recipient.blank?
 
-    team = Team.find(invitation_params[:team_id])
-    recipient = User.find_by(username: invitation_params[:username])
+    invitation_sender = InvitationSender.new(current_user, recipient, team)
+    return respond_with_errors(invitation_sender.error_messages.join(', ')) unless invitation_sender.valid?
 
-    # TODO: if recipint is nil then return an error
-    # TODO: if recipient is already a member of the team then return an error
-    # TODO: if recipient has already been invited to the team then return an error
-    # TODO: if recipient is the current user then return an error
-
-    invitation.sender = current_user
-    invitation.recipient = recipient
-    invitation.team = team
-    invitation.active = true
-
-    invitation.save
+    invitation_sender.create
+    respond_with_success
   end
 
   private
 
-  def invitation_params
-    params.permit(:username, :team_id)
+  def team
+    @team ||= Team.find(params[:team_id])
+  end
+
+  def recipient
+    @recipient ||= User.find_by(username: params[:username])
+  end
+
+  def respond_with_success
+    flash[:success] = 'Invitation sent'
+    redirect_to teams_path
+  end
+
+  def respond_with_errors(message)
+    flash[:error] = message
+    redirect_to new_team_invitation_path
   end
 end
