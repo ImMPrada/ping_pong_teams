@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
       user.become_owner_of!(team)
     end
 
-    it "becomes the user an owner of the team" do
+    it 'becomes the user an owner of the team' do
       expect(team_user.role).to eq(TeamUser::ROLES[:owner])
     end
   end
