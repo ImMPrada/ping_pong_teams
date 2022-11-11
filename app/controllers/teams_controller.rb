@@ -1,0 +1,29 @@
+class TeamsController < ApplicationController
+  before_action :authenticate_user!
+
+  def new; end
+
+  def create
+    team = current_user.teams.create(team_params)
+    return respond_with_errors(team) unless team.valid?
+
+    current_user.become_owner_of!(team)
+    respond_with_success(team)
+  end
+
+  private
+
+  def team_params
+    params.permit(:name)
+  end
+
+  def respond_with_success(_team)
+    flash[:success] = 'Team created!'
+    redirect_to root_path
+  end
+
+  def respond_with_errors(team)
+    flash[:error] = team.errors.full_messages.to_sentence
+    redirect_to new_team_path
+  end
+end

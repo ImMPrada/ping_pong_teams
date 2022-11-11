@@ -16,4 +16,19 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:pings).dependent(:destroy) }
     it { is_expected.to have_many(:pongs).dependent(:destroy) }
   end
+
+  describe '#become_owner_of!' do
+    let(:user) { create(:user, teams: [team]) }
+    let(:team) { create(:team) }
+
+    let(:team_user) { TeamUser.find_by(user: user, team: team) }
+
+    before do
+      user.become_owner_of!(team)
+    end
+
+    it "becomes the user an owner of the team" do
+      expect(team_user.role).to eq(TeamUser::ROLES[:owner])
+    end
+  end
 end
