@@ -1,0 +1,18 @@
+<h1>
+  Teams
+</h1>
+
+<% if @teams.empty? %>
+  <p>
+    No teams found.
+  </p>
+<% else %>
+  <% @teams.each do |team| %>
+    <div>
+      <img src=<%= team.logo.attached? ? url_for(team.logo) : Team::DEFAULT_LOGO_URL %>>
+      <p>
+        <%= team.name %>
+      </p>
+    </div>
+  <% end %>
+<% end %>

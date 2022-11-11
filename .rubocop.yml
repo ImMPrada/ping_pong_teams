@@ -38,3 +38,6 @@ Rails/UnknownEnv:
     - production
     - test
     - development
+
+RSpec/MessageSpies:
+  Enabled: false
