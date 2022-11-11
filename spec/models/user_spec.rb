@@ -15,6 +15,8 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:teams).through(:team_users) }
     it { is_expected.to have_many(:pings).dependent(:destroy) }
     it { is_expected.to have_many(:pongs).dependent(:destroy) }
+    it { is_expected.to have_many(:sent_invitations).class_name('Invitation').with_foreign_key(:sender_id) }
+    it { is_expected.to have_many(:received_invitations).class_name('Invitation').with_foreign_key(:recipient_id) }
   end
 
   describe '#become_owner_of!' do

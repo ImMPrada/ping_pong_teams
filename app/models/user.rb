@@ -10,6 +10,10 @@ class User < ApplicationRecord
   has_many :teams, through: :team_users
   has_many :pings, dependent: :destroy
   has_many :pongs, dependent: :destroy
+  has_many :sent_invitations, class_name: 'Invitation', foreign_key: :sender_id, inverse_of: :sender,
+                              dependent: :destroy
+  has_many :received_invitations, class_name: 'Invitation', foreign_key: :recipient_id, inverse_of: :recipient,
+                                  dependent: :destroy
 
   def become_owner_of!(team)
     team_user = team_users.find_by(team: team)
