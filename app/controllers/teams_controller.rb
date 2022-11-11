@@ -11,6 +11,10 @@ class TeamsController < ApplicationController
     respond_with_success(team)
   end
 
+  def index
+
+  end
+
   private
 
   def team_params
