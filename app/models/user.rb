@@ -19,4 +19,8 @@ class User < ApplicationRecord
     team_user = team_users.find_by(team: team)
     team_user.update!(role: TeamUser::ROLES[:owner])
   end
+
+  def member_of?(team)
+    teams.include?(team)
+  end
 end
