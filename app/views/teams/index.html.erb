@@ -8,8 +8,11 @@
   </p>
 <% else %>
   <% @teams.each do |team| %>
-    <p>
-      <%= team.name %>
-    </p>
+    <div>
+      <img src=<%= team.logo.attached? ? url_for(team.logo) : Team::DEFAULT_LOGO_URL %>>
+      <p>
+        <%= team.name %>
+      </p>
+    </div>
   <% end %>
 <% end %>

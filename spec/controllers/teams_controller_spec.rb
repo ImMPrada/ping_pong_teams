@@ -24,7 +24,10 @@ RSpec.describe TeamsController, type: :controller do
 
     context 'with valid params' do
       let(:params) do
-        { name: Faker::Game.title }
+        {
+          name: Faker::Game.title,
+          logo: Rack::Test::UploadedFile.new('spec/fixtures/images/team_logo.png', 'image/png')
+        }
       end
 
       it 'creates a new team' do
@@ -33,6 +36,10 @@ RSpec.describe TeamsController, type: :controller do
 
       it 'sets the team name' do
         expect(user.teams.first.name).to eq(params[:name])
+      end
+
+      it 'sets the team logo' do
+        expect(user.teams.first.logo).to be_attached
       end
 
       it 'returns a redirect status' do

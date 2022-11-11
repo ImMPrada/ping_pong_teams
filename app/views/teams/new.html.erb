@@ -5,5 +5,9 @@
 <%= form_with url: teams_path, method: :post do |form| %>
   <%= form.label :name, "Team Name" %>
   <%= form.text_field :name %>
+  <br>
+  <%= form.label :logo, "Team Logo" %>
+  <%= form.file_field :logo %>
+  <br>
   <%= form.submit "Create" %>
 <% end %>

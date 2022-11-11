@@ -7,6 +7,7 @@ class TeamsController < ApplicationController
     team = current_user.teams.create(team_params)
     return respond_with_errors(team) unless team.valid?
 
+    team.logo.attach(params[:logo])
     current_user.become_owner_of!(team)
     respond_with_success(team)
   end
