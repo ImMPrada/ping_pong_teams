@@ -4,5 +4,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root to: 'teams#index'
-  resources :teams, only: %i[new create index]
+  resources :teams, only: %i[new create index] do
+    resources :invitations, only: %i[new create]
+  end
 end

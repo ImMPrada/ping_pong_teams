@@ -1,0 +1,8 @@
+<h1>INVITATIONS</h1>
+
+<%= form_with url: team_invitations_path, method: :post do |form| %>
+  <%= form.label :username, "Username:" %>
+  <%= form.text_field :username %>
+  <br>
+  <%= form.submit "Create" %>
+<% end %>
