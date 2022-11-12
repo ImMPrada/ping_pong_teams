@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :teams, only: %i[new create index] do
     resources :invitations, only: %i[new create]
   end
-
   resources :invitations, only: %i[index update]
+
+  mount ActionCable.server, at: '/cable'
 end

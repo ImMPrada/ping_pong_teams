@@ -9,8 +9,11 @@ class InvitationsController < ApplicationController
     invitation_sender = InvitationSender.new(current_user, recipient, team)
     return respond_with_errors(invitation_sender.error_messages.join(', ')) unless invitation_sender.valid?
 
-    invitation_sender.create
-    respond_with_success
+    invitation = invitation_sender.create
+    ActionCable.server.broadcast(
+      "invitation_channel_user_#{invitation.recipient_id}",
+      { invitation: render_invitation(invitation) }
+    )
   end
 
   def index
@@ -57,5 +60,9 @@ class InvitationsController < ApplicationController
   def respond_with_errors(message)
     flash[:error] = message
     redirect_to new_team_invitation_path
+  end
+
+  def render_invitation(invitation)
+    render(partial: 'invitation', locals: { invitation: invitation })
   end
 end

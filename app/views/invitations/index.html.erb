@@ -2,20 +2,8 @@
   Received Invitations
 </h1>
 
-<% @invitations.each do |invitation| %>
-  <div>
-    <p>
-      Team: <%= invitation.team.name %>
-    </p>
-    <p>
-      From: <%= invitation.sender.username %>
-    </p>
-    <p>
-      Invited at: <%= invitation.created_at %>
-    </p>
-    <p>
-      <%= link_to "Accept", invitation_path(invitation, params: { accepted: true }), data: { "turbo-method": :patch } %>
-      <%= link_to "Deny", invitation_path(invitation, params: { accepted: false }), data: { "turbo-method": :patch } %>
-    </p>
-  </div>
-<% end %>
+<div id="invitations">
+  <% @invitations.each do |invitation| %>
+    <%= render partial: "invitation", locals: { invitation: invitation } %>
+  <% end %>
+</div>
