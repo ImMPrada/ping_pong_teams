@@ -1,0 +1,9 @@
+<h1>
+  Received Invitations
+</h1>
+
+<div id="invitations">
+  <% @invitations.each do |invitation| %>
+    <%= render partial: "invitation", locals: { invitation: invitation } %>
+  <% end %>
+</div>

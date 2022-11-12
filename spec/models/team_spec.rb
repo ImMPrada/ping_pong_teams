@@ -12,5 +12,6 @@ RSpec.describe Team, type: :model do
     it { is_expected.to have_many(:team_users) }
     it { is_expected.to have_many(:users).through(:team_users) }
     it { is_expected.to have_many(:pings).dependent(:destroy) }
+    it { is_expected.to have_many(:invitations) }
   end
 end
