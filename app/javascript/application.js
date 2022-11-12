@@ -2,3 +2,5 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "channels"
+
+Notification.requestPermission().then(function(result) {});

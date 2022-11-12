@@ -18,5 +18,16 @@ consumer.subscriptions.create("InvitationChannel", {
     if (!invitationsEl) return;
  
     invitationsEl.innerHTML += invitation
+
+    if (Notification.permission !== "granted") return
+
+    const title = 'New Invitation'
+    const body = 'You have a new invitation'
+
+    const options = {
+      body
+    }
+
+    new Notification(title, options)
   }
 });
