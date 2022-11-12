@@ -7,4 +7,5 @@ class Team < ApplicationRecord
   has_many :team_users, dependent: :destroy
   has_many :users, through: :team_users
   has_many :pings, dependent: :destroy
+  has_many :invitations, dependent: :destroy
 end

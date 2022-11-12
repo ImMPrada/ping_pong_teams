@@ -13,6 +13,7 @@
       <p>
         <%= team.name %>
       </p>
+      <%= link_to "Invite user", new_team_invitation_path(team_id: team.id) %>
     </div>
   <% end %>
 <% end %>
