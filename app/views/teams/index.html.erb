@@ -14,6 +14,11 @@
         <%= team.name %>
       </p>
       <%= link_to "Invite user", new_team_invitation_path(team_id: team.id) %>
+      <% if team.any_active_ping? %>
+        <span> pong! </span>
+      <% else %>
+        <%= link_to "Ping!", pings_path(params: { team_id: team.id }), data: { "turbo-method": :post } %>
+      <% end %>
     </div>
   <% end %>
 <% end %>

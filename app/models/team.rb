@@ -8,4 +8,12 @@ class Team < ApplicationRecord
   has_many :users, through: :team_users
   has_many :pings, dependent: :destroy
   has_many :invitations, dependent: :destroy
+
+  def any_active_ping?
+    active_ping.present?
+  end
+
+  def active_ping
+    pings.find_by(active: true)
+  end
 end
