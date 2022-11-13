@@ -1,0 +1,11 @@
+<div>
+  Suscribed users:
+  <br>
+  <% active_ping.suscribed_pongs.each do |suscribed_pong| %>
+    <%= suscribed_pong.user.username %>
+    <% if suscribed_pong.user == current_user %>
+      <%= link_to "Unsuscribe", pong_path(suscribed_pong, params: { active: false }), data: { "turbo-method": :patch } %>
+    <% end %>
+    <br>
+  <% end %>
+</div>

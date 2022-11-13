@@ -8,5 +8,7 @@ Rails.application.routes.draw do
     resources :invitations, only: %i[new create]
   end
 
+  resources :pings, only: %i[create]
+  resources :pongs, only: %i[create update]
   resources :invitations, only: %i[index update]
 end

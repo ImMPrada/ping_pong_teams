@@ -20,9 +20,9 @@ RSpec.describe User, type: :model do
   end
 
   describe '#become_owner_of!' do
-    let(:user) { create(:user, teams: [team]) }
-    let(:team) { create(:team) }
+    subject(:user) { create(:user, teams: [team]) }
 
+    let(:team) { create(:team) }
     let(:team_user) { TeamUser.find_by(user: user, team: team) }
 
     before do
@@ -31,6 +31,21 @@ RSpec.describe User, type: :model do
 
     it 'becomes the user an owner of the team' do
       expect(team_user.role).to eq(TeamUser::ROLES[:owner])
+    end
+  end
+
+  describe '#suscribed_to_team_ping?' do
+    subject(:user) { create(:user, teams: [team]) }
+
+    let(:team) { create(:team) }
+    let(:ping) { create(:ping, team: team, active: true) }
+
+    before do
+      create(:pong, ping: ping, user: user, active: true)
+    end
+
+    it 'returns true if the user is suscribed to the team ping' do
+      expect(user.suscribed_to_team_ping?(team)).to be(true)
     end
   end
 end

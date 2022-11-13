@@ -14,6 +14,14 @@
         <%= team.name %>
       </p>
       <%= link_to "Invite user", new_team_invitation_path(team_id: team.id) %>
+      <% if team.any_active_ping? %>
+        <% unless current_user.suscribed_to_team_ping?(team) %>
+          <%= link_to "Pong!", pongs_path(params: { ping_id: team.active_ping.id }), data: { "turbo-method": :post }%>
+        <% end %>
+        <%= render partial: "suscribed_users", locals: { active_ping: team.active_ping } %>
+      <% else %>
+        <%= link_to "Ping!", pings_path(params: { team_id: team.id }), data: { "turbo-method": :post } %>
+      <% end %>
     </div>
   <% end %>
 <% end %>

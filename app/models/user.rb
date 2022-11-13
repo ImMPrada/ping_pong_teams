@@ -23,4 +23,8 @@ class User < ApplicationRecord
   def member_of?(team)
     teams.include?(team)
   end
+
+  def suscribed_to_team_ping?(team)
+    team.active_ping.pongs.where(user: self, active: true).any?
+  end
 end
